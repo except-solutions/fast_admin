@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "fast_admin"
+version = "0.0.1"
+description = ""
+authors = ["Alexey Lebedev <devspades@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+fastapi = "^0.61.1"
+
+[tool.poetry.dev-dependencies]
+wemake-python-styleguide = "^0.14.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
