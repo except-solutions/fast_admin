@@ -382,6 +382,14 @@ python-versions = ">=3.5"
 snowballstemmer = "*"
 
 [[package]]
+name = "pyenv"
+version = "0.0.1"
+description = "pyenv project placeholder package"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pyflakes"
 version = "2.2.0"
 description = "passive checker of Python programs"
@@ -537,7 +545,7 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "51810807e350a05a53e49864c8af1ae8737d4e8d753fd9e170f27cd4a4feb206"
+content-hash = "a46f1ac5235f90edfa77f743c8e0eddd80a8957ce7376dac73fa1ca4712ff1d1"
 
 [metadata.files]
 astor = [
@@ -681,6 +689,9 @@ pydantic = [
 pydocstyle = [
     {file = "pydocstyle-5.1.1-py3-none-any.whl", hash = "sha256:aca749e190a01726a4fb472dd4ef23b5c9da7b9205c0a7857c06533de13fd678"},
     {file = "pydocstyle-5.1.1.tar.gz", hash = "sha256:19b86fa8617ed916776a11cd8bc0197e5b9856d5433b777f51a3defe13075325"},
+]
+pyenv = [
+    {file = "pyenv-0.0.1.tar.gz", hash = "sha256:4c29f881b26772ada6bc5a945f1f71f7cc33c0420bb7eb1e144d8b1f2134fedb"},
 ]
 pyflakes = [
     {file = "pyflakes-2.2.0-py2.py3-none-any.whl", hash = "sha256:0d94e0e05a19e57a99444b6ddcf9a6eb2e5c68d3ca1e98e90707af8152c90a92"},
