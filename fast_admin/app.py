@@ -9,6 +9,7 @@ from fast_admin.routes import router
 
 class StorageConfig(BaseModel, abc.ABC):
     """Abstract storage config."""
+
     host: str
     port: int
     database: str
@@ -22,15 +23,18 @@ class PGConfig(StorageConfig):
 
 class FastAdmin(BaseModel):
     """Admin application instance."""
+
     title: str
     route: str
     app: FastAPI
     storage_conf: StorageConfig
 
-    class Config:
-        arbitrary_types_allowed = True
+    class Config:  # noqa: WPS431
+        """Pydantic model meta."""
 
-    def configure(self):
+        arbitrary_types_allowed: bool = True
+
+    def configure(self) -> None:
         self.app.include_router(
             router,
             prefix=self.route,

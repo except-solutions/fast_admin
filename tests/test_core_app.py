@@ -1,5 +1,5 @@
+"""Basic application functional test."""
 import hamcrest
-
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
