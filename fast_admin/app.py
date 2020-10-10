@@ -4,6 +4,8 @@ import abc
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from fast_admin.routes import router
+
 
 class StorageConfig(BaseModel, abc.ABC):
     """Abstract storage config."""
@@ -25,8 +27,11 @@ class FastAdmin(BaseModel):
     app: FastAPI
     storage_conf: StorageConfig
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     class Config:
         arbitrary_types_allowed = True
+
+    def configure(self):
+        self.app.include_router(
+            router,
+            prefix=self.route,
+        )

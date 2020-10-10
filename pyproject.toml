@@ -12,6 +12,10 @@ pydantic = "^1.6.1"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.14.1"
+mypy = "^0.790"
+pytest = "^6.1.1"
+requests = "^2.24.0"
+PyHamcrest = "^2.0.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
