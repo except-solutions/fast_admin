@@ -1,12 +1,14 @@
 """Basic application functional test."""
 import hamcrest
+import pytest
 from fastapi import FastAPI
-from fastapi.testclient import TestClient
+from httpx import AsyncClient
 
-from fast_admin import FastAdmin, PGConfig
+from fast_admin import FastAdmin, PGConfig, PGResource
 
 
-def test_app_instancing():
+@pytest.mark.asyncio
+async def test_app_instancing():
     """Test basic app functions."""
     app = FastAPI()
     route = '/admin'
@@ -21,9 +23,10 @@ def test_app_instancing():
             database='fast_admin',
             username='fast_admin',
             password='fast_admin',
+            resources=(PGResource(table_name='users'),),
         ),
     )
     fast_admin.configure()
-    client = TestClient(app)
-    response = client.get(route)
-    hamcrest.assert_that(response.text, hamcrest.contains_string('Index page'))
+    async with AsyncClient(app=app, base_url='http://test') as client:
+        response = await client.get(route)
+        hamcrest.assert_that(response.text, hamcrest.contains_string('Index page'))
