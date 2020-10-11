@@ -9,6 +9,10 @@ license = "MIT"
 python = "^3.6"
 fastapi = "^0.61.1"
 pydantic = "^1.6.1"
+databases = "^0.3.2"
+Inject = "^4.3.1"
+asyncpg = "^0.21.0"
+httpx = "^0.16.1"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.14.1"
@@ -16,6 +20,7 @@ mypy = "^0.790"
 pytest = "^6.1.1"
 requests = "^2.24.0"
 PyHamcrest = "^2.0.2"
+pytest-asyncio = "^0.14.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
