@@ -22,6 +22,9 @@ requests = "^2.24.0"
 PyHamcrest = "^2.0.2"
 pytest-asyncio = "^0.14.0"
 
+[tool.poetry.scripts]
+example-init-in-app = "example.init_in_app:init_app"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
