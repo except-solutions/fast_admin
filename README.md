@@ -1,5 +1,5 @@
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-
+![CI](https://github.com/Except-solutions/fast_admin/workflows/CI/badge.svg?branch=master)
 
 # Fast and ORM independent admin-panel.
 
