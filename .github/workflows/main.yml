@@ -33,6 +33,10 @@ jobs:
         run: |
           poetry run flake8 --config .setup.cfg
 
+      - name: mypy
+        run: |
+          poetry run mypy **/*.py
+
       - name: tests
         run: |
           poetry run pytest tests
