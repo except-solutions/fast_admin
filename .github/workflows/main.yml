@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Poetry
+        uses: Gr1N/setup-poetry@v4
+      
+      - name: Install dependency
+        run: |
+          poetry install
+          
+      - name: isort
+        run: |
+          poetry run isort **/*.py --check-only
+
+      - name: flake8
+        run: |
+          poetry run flake8 --config .setup.cfg
