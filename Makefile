@@ -7,3 +7,6 @@ lint:
 
 sort:
 	isort **/*.py
+
+mypy:
+	mypy **/*.py
