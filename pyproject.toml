@@ -13,6 +13,7 @@ databases = "^0.3.2"
 Inject = "^4.3.1"
 asyncpg = "^0.21.0"
 httpx = "^0.16.1"
+Jinja2 = "^2.11.2"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.14.1"
