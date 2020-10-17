@@ -14,7 +14,7 @@ async def test_app_instancing():
     route = '/admin'
     port = 5446
     fast_admin = FastAdmin(
-        title='hello world',
+        title='Hello title',
         app=app,
         route=route,
         storage_conf=PGConfig(
@@ -26,7 +26,8 @@ async def test_app_instancing():
             resources=(PGResource(table_name='users'),),
         ),
     )
+
     fast_admin.configure()
     async with AsyncClient(app=app, base_url='http://test') as client:
         response = await client.get(route)
-        hamcrest.assert_that(response.text, hamcrest.contains_string('Index page'))
+        hamcrest.assert_that(response.text, hamcrest.contains_string('Hello title'))

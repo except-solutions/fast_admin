@@ -9,11 +9,13 @@ def configure_pg_connection(*args, **kwargs):
     return get_connection('postgresql', *args, **kwargs)
 
 
-def di_config(binder: inject.Binder) -> None:
-    """Add container bindings."""
-    binder.bind('pg_connection_provider', configure_pg_connection)
+def configure_container(fast_admin):
+    """Configure inject function."""
+    def di_config(binder: inject.Binder) -> None:  # noqa: WPS430
+        """Add container bindings."""
+        binder.bind('fast_admin', fast_admin)
+        binder.bind('pg_connection_provider', configure_pg_connection)
+    inject.configure(di_config)
 
-
-inject.configure(di_config)
 
 app_inject_module = inject
