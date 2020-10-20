@@ -19,7 +19,7 @@ async def index(request: Request) -> TemplateResponse:
         directory=str(fast_admin.app_route / 'templates'),
     )
     return templates.TemplateResponse(
-        'index.jinja2',
+        fast_admin.index_template,  # type: ignore
         {
             'request': request,
             'title': fast_admin.title,

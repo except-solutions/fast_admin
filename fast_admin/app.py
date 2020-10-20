@@ -1,9 +1,10 @@
 """Basic app instances."""
 import abc
 from pathlib import PurePath
-from typing import Any, Tuple
+from typing import Any, Tuple, Union
 
 from fastapi import FastAPI
+from jinja2 import Template
 from pydantic import BaseModel
 
 from fast_admin.di import app_inject_module as inject
@@ -68,6 +69,7 @@ class FastAdmin(BaseModel):
     app: FastAPI
     storage_conf: StorageConfig
     app_route: PurePath = PurePath(__file__).parent
+    index_template: Union[Template, str] = 'index.jinja2'
 
     class Config:  # noqa: WPS431
         """Pydantic model meta."""
@@ -88,14 +90,4 @@ class FastAdmin(BaseModel):
         self.app.include_router(
             router,
             prefix=self.route,
-        )
-        self._configure().send(None)
-
-    async def _configure(self):
-        await self.storage_conf.get_connection(
-            self.storage_conf.host,
-            self.storage_conf.port,
-            self.storage_conf.username,
-            self.storage_conf.password,
-            self.storage_conf.database,
         )
