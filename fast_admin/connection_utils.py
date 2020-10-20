@@ -1,8 +1,9 @@
 """Databases common connection utils."""
+import inject
 from databases import Database
 
 
-async def get_connection(
+def get_db_provired(
     driver: str,
     host: str,
     port: int,
@@ -11,7 +12,7 @@ async def get_connection(
     password: str,
 ):
     """Provide postgres async connection."""
-    db: Database = Database(
+    return Database(
         '{driver}://{username}:{password}@{host}:{port}/{db_name}'.format(
             driver=driver,
             host=host,
@@ -21,5 +22,10 @@ async def get_connection(
             password=password,
         ),
     )
-    await db.connect()
-    return db
+
+
+async def get_connection() -> Database:
+    """Return establish connection."""
+    conn: Database = inject.instance('fast_admin').db_provider  # type: ignore
+    await conn.connect()
+    return conn

@@ -14,6 +14,7 @@ Inject = "^4.3.1"
 asyncpg = "^0.21.0"
 httpx = "^0.16.1"
 Jinja2 = "^2.11.2"
+uvicorn = "^0.12.1"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.14.1"

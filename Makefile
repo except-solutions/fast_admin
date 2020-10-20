@@ -1,6 +1,8 @@
 all:
 	flake8 --config .setup.cfg
 	isort **/*.py
+	mypy **/*.py
+	pytest tests
 
 lint:
 	flake8 --config .setup.cfg
@@ -10,3 +12,6 @@ sort:
 
 mypy:
 	mypy **/*.py
+
+tests:
+	pytest tests
