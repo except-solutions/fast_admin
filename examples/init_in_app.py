@@ -1,9 +1,11 @@
 """Base configuration and initialization fast_admin instance."""
 
 import logging
+import os
 from typing import Optional
 
 from fastapi import FastAPI
+from jinja2 import Environment, FileSystemLoader
 
 from fast_admin import FastAdmin, PGConfig, PGResource
 
@@ -14,10 +16,14 @@ app = FastAPI()
 
 def init_app() -> FastAPI:
     """Init test app with fast_admin."""
+    file_loader = FileSystemLoader(os.path.dirname(__file__))
+    env = Environment(loader=file_loader)
+
     fast_admin = FastAdmin(
         title='hello world',
         app=app,
         route='/admin',
+        index_template=env.get_template('index.jinja2'),
         storage_conf=PGConfig(  # noqa: S106 hard-code TODO: settings
             host='localhost',
             port=5446,  # noqa: WPS432 magic-number TODO: settings
