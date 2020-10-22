@@ -1,12 +1,12 @@
 """DI configuration module."""
 import inject
 
-from fast_admin.connection_utils import get_connection
+from fast_admin.connection_utils import get_db_provired
 
 
 def configure_pg_connection(*args, **kwargs):
     """Configure pg connection instance."""
-    return get_connection('postgresql', *args, **kwargs)
+    return get_db_provired('postgresql', *args, **kwargs)
 
 
 def configure_container(fast_admin):

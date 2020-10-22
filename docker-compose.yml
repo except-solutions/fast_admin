@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    volumes:
+      - ./var/postgresql-data/:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: fast_admin
+      POSTGRES_USER: fast_admin
+      POSTGRES_PASSWORD: fast_admin

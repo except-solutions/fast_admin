@@ -1,14 +1,16 @@
 """Basic app instances."""
 import abc
 from pathlib import PurePath
-from typing import Any, Tuple, Union
+from typing import Any, Optional, Tuple, Union
 
+from databases import Database
 from fastapi import FastAPI
 from jinja2 import Template
 from pydantic import BaseModel
 
 from fast_admin.di import app_inject_module as inject
 from fast_admin.di import configure_container
+from fast_admin.urls import register_admin_routers
 
 
 class StorageResource(BaseModel, abc.ABC):
@@ -26,7 +28,7 @@ class StorageConfig(BaseModel, abc.ABC):
     resources: Tuple[StorageResource, ...]
 
     @abc.abstractmethod
-    async def get_connection(
+    def get_connection(
         self,
         host: str,
         port: int,
@@ -43,7 +45,7 @@ class PGConfig(StorageConfig):
     """Postgres config."""
 
     @inject.params(connection_provider='pg_connection_provider')
-    async def get_connection(
+    def get_connection(
         self,
         host: str,
         port: int,
@@ -52,7 +54,7 @@ class PGConfig(StorageConfig):
         db_name: str,
         connection_provider,
     ):
-        return await connection_provider(host, port, username, password, db_name)
+        return connection_provider(host, port, username, password, db_name)
 
 
 class PGResource(StorageResource):
@@ -70,6 +72,7 @@ class FastAdmin(BaseModel):
     storage_conf: StorageConfig
     app_route: PurePath = PurePath(__file__).parent
     index_template: Union[Template, str] = 'index.jinja2'
+    db_provider: Optional[Database]
 
     class Config:  # noqa: WPS431
         """Pydantic model meta."""
@@ -84,10 +87,15 @@ class FastAdmin(BaseModel):
         - Add routes
         - Check storage connections
         """
-        from fast_admin.routes import router  # noqa: WPS433
-
         configure_container(self)
-        self.app.include_router(
-            router,
-            prefix=self.route,
+        register_admin_routers(app=self.app, admin_route=self.route)
+        self._configure()
+
+    def _configure(self):
+        self.db_provider = self.storage_conf.get_connection(
+            self.storage_conf.host,
+            self.storage_conf.port,
+            self.storage_conf.username,
+            self.storage_conf.password,
+            self.storage_conf.database,
         )
