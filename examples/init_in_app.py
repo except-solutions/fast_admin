@@ -4,6 +4,7 @@ import logging
 import os
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from jinja2 import Environment, FileSystemLoader
 
 from fast_admin import FastAdmin, PGConfig, PGResource
@@ -18,6 +19,14 @@ def init_app() -> FastAPI:
 
     app = FastAPI()
 
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=['*'],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
     fast_admin = FastAdmin(
         title='Fast Admin',
         app=app,
@@ -31,6 +40,7 @@ def init_app() -> FastAPI:
             password='fast_admin',  # noqa: S106 hard-code TODO: settings
             resources=(
                 PGResource(table_name='users'),
+                PGResource(table_name='items'),
             ),
         ),
     )
